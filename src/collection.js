@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { MeteorContext } from './context';
+import cloneDeep from 'lodash.clonedeep';
 
 const noFilter = () => true;
 
@@ -14,9 +15,9 @@ export const useCollection = (name, filter = noFilter) => {
     }
 
     let reactiveCursor = server.collection(name).filter(filter).reactive();
-    reactiveCursor.onChange(newData => setData(newData));
+    reactiveCursor.onChange(newData => setData(cloneDeep(newData)));
 
-    setData(reactiveCursor.data());
+    setData(cloneDeep(reactiveCursor.data()));
 
     return () => reactiveCursor.stop();
 
@@ -35,9 +36,9 @@ export const useCollectionOne = (name, filter = noFilter) => {
     }
 
     let reactiveCursor = server.collection(name).filter(filter).reactive().one();
-    reactiveCursor.onChange(newData => setData(newData));
+    reactiveCursor.onChange(newData => setData(cloneDeep(newData)));
 
-    setData(reactiveCursor.data());
+    setData(cloneDeep(reactiveCursor.data()));
 
     return () => reactiveCursor.stop();
 
