@@ -11,5 +11,8 @@
     "meteor"
   ],
   "author": "Sandeep Nambiar",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "simpleddp": "^2.2.4"
+  }
 }
