@@ -13,6 +13,11 @@
   "author": "Sandeep Nambiar",
   "license": "ISC",
   "dependencies": {
-    "simpleddp": "^2.2.4"
+    "simpleddp": "^2.2.4",
+    "simpleddp-plugin-login": "^4.0.2",
+    "zustand": "^3.0.2"
+  },
+  "peer-dependencies": {
+    "react": "^16.13.1"
   }
 }
