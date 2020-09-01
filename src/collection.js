@@ -35,10 +35,18 @@ export const useCollectionOne = (name, filter = noFilter) => {
       return () => { };
     }
 
-    let reactiveCursor = server.collection(name).filter(filter).reactive().one();
-    reactiveCursor.onChange(newData => setData(cloneDeep(newData)));
+    const reactiveList = server.collection(name).filter(filter).reactive();
+    const reactiveCursor = reactiveList.one();
 
-    setData(cloneDeep(reactiveCursor.data()));
+    reactiveCursor.onChange(newData => {
+      if (reactiveList.count().result > 0) {
+        setData(cloneDeep(newData));
+      }
+    });
+
+    if (reactiveList.count().result > 0) {
+      setData(cloneDeep(reactiveCursor.data()));
+    }
 
     return () => reactiveCursor.stop();
 

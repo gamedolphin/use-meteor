@@ -6,12 +6,12 @@ const subMap = {};
 const getSub = (server, subName, args) => {
   let sub = subMap[subName];
   if (sub) {
-    return [sub, false];
+    return sub;
   }
 
   sub = server.subscribe(subName, ...args);
   subMap[subName] = sub;
-  return [sub, true];
+  return sub;
 };
 
 export const useSubscription = (subName, args = []) => {
@@ -24,10 +24,11 @@ export const useSubscription = (subName, args = []) => {
       return () => { };
     }
 
-    const [sub, started] = getSub(server, subName, args);
+    const sub = getSub(server, subName, args);
 
     const fn = async () => {
-      if (!started) {
+      const isOn = await sub.isOn();
+      if (!isOn) {
         await sub.restart(args);
       }
       await sub.ready();
@@ -35,7 +36,6 @@ export const useSubscription = (subName, args = []) => {
     };
 
     fn();
-
     return () => sub.stop();
 
   }, [server, subName, ...args]);
