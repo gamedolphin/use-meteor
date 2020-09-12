@@ -1,7 +1,7 @@
 {
   "name": "use-meteor",
   "version": "0.0.1",
-  "description": "\"Meteor client for react\"",
+  "description": "Meteor client for react",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "meteor"
   ],
   "author": "Sandeep Nambiar",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
     "simpleddp": "^2.2.4",
